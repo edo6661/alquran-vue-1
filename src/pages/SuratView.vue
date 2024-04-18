@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import TemporaryLoading from "@/components/TemporaryLoading.vue";
-import { useRoute } from "vue-router";
+import { onBeforeRouteUpdate, useRoute } from "vue-router";
 import { useSurat } from "@/composable/surat";
 import Input from "@/components/ui/input/Input.vue";
 import SuratCard from "@/components/surat/SuratCard.vue";
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import TemporaryEmpty from "@/components/TemporaryEmpty.vue";
 import { betterQuery } from "@/utils";
 import { vAutoAnimate } from "@formkit/auto-animate/vue";
@@ -15,12 +15,11 @@ import { RouterLink } from "vue-router";
 const route = useRoute();
 const paramsId = ref<string>(route.params.id as string);
 
-watch(
-  () => route.params.id,
-  (newId, _oldId) => {
-    paramsId.value = newId as string;
-  }
-);
+onBeforeRouteUpdate((to, _from, next) => {
+  paramsId.value = to.params.id as string;
+  next();
+});
+
 const { data, isLoading } = useSurat(paramsId);
 const query = ref<string>("");
 

@@ -32,6 +32,10 @@ export interface Surah extends Alquran {
       };
 }
 
+export interface SuratData extends Alquran {
+  data: Surah;
+}
+
 export interface Ayat {
   nomorAyat: number;
   teksArab: string;
