@@ -20,7 +20,7 @@ onBeforeRouteUpdate((to, _from, next) => {
   next();
 });
 
-const { data, isLoading } = useSurat(paramsId);
+const { data, isLoading, isFetching } = useSurat(paramsId);
 const query = ref<string>("");
 
 const filteredData = computed(() =>
@@ -43,13 +43,12 @@ const filteredData = computed(() =>
 <template>
   <section
     class="max-w-4xl mx-auto base-container"
-    v-if="!isLoading"
+    v-if="!isLoading || !isFetching"
     v-auto-animate
   >
-    <p class="font-bold text-2xl text-center">
-      {{ paramsId }}
-    </p>
-    <div class="bg-slate-200 px-8 py-6 space-y-8 rounded-t-2xl">
+    <div
+      class="bg-slate-200 dark:bg-black/70 px-8 py-6 space-y-8 rounded-t-2xl"
+    >
       <div class="space-y-4 justify-center text-center">
         <h2 class="base-heading">{{ data?.nama }}</h2>
         <div class="fl-ic gap-2 justify-center">
@@ -97,7 +96,7 @@ const filteredData = computed(() =>
         </RouterLink>
       </div>
     </div>
-    <div class="bg-white px-8 py-6 space-y-8 rounded-b-2xl">
+    <div class="bg-white dark:bg-black/15 px-8 py-6 space-y-8 rounded-b-2xl">
       <h4 class="base-subheading text-center">
         بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
       </h4>
@@ -105,6 +104,7 @@ const filteredData = computed(() =>
       <div
         v-for="(ayat, i) in filteredData?.ayat"
         class="flex sm:justify-between sm:flex-row flex-col gap-8"
+        v-if="filteredData?.ayat?.length"
       >
         <SuratCard :ayat="ayat" :i="i" />
       </div>

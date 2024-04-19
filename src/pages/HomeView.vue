@@ -30,7 +30,6 @@ watch(
 );
 </script>
 <template>
-  <h1>Home View</h1>
   <TemporaryLoading v-if="isLoading" />
   <div
     class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 base-container gap-4"
@@ -39,7 +38,7 @@ watch(
       v-for="(surah, _index) of store.data"
       :key="surah.nomor"
       v-if="store.data.length > 0"
-      class="bg-primaryLight hover:shadow-md shadow-muted-foreground base-transition rounded-xl fl-ic justify-between p-4 gap-4 relative"
+      class="bg-primaryLight hover:shadow-md shadow-muted-foreground base-transition rounded-xl fl-ic justify-between p-4 gap-4 relative dark:bg-black/70"
       :to="{
         name: 'Surat',
         params: { id: surah.nomor },
