@@ -50,13 +50,9 @@ const filteredData = computed(() =>
       }
     : data.value
 );
-watch(show, (val) => {
-  console.log(val);
-});
 </script>
 
 <template>
-  <Button @click="show = !show"> Show </Button>
   <TransitionFade>
     <section
       class="max-w-4xl mx-auto base-container"
